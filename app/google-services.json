@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "3989111389",
+    "firebase_url": "https://clinicar2-5e2fa.firebaseio.com",
+    "project_id": "clinicar2-5e2fa",
+    "storage_bucket": "clinicar2-5e2fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3989111389:android:476db32af4598e63",
+        "android_client_info": {
+          "package_name": "company.clinicar.clinicar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3989111389-llfpbd6k3qdeujps3arclhrh73ujqf8j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "company.clinicar.clinicar",
+            "certificate_hash": "0c0841b938176d9840d79234d6432760b77a90e4"
+          }
+        },
+        {
+          "client_id": "3989111389-qdekld4ot92qg6ur61m30ut8j9tbtbdo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6F_4FU30S6QU5jSgyNVhKUjGDkcR4AzA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3989111389-qdekld4ot92qg6ur61m30ut8j9tbtbdo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
