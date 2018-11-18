@@ -28,6 +28,11 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".BemVindo"></activity>
+        <activity android:name=".ContratoActivity"></activity>
+        <activity android:name=".ActivityContrato.CarroActivity"></activity>
+        <activity android:name=".ActivityContrato.OficinaActivity"></activity>
+        <activity android:name=".ActivityContrato.PlanosActivity"></activity>
+
     </application>
 
 </manifest>

@@ -31,6 +31,8 @@ public class MainActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     public void Logar (View view)
     {
         String sLogin =editLogin.getText().toString();
@@ -42,8 +44,17 @@ public class MainActivity extends Activity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(MainActivity.this, "Logado Sucesso", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, BemVindo.class);
-                            startActivity(intent);
+                            if(user.getDisplayName() == null)
+                            {
+                                Intent intent = new Intent(MainActivity.this, BemVindo.class);
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Intent intent = new Intent(MainActivity.this, ContratoActivity.class);
+                                startActivity(intent);
+                            }
+
                         }
                         else
                         {
@@ -52,7 +63,6 @@ public class MainActivity extends Activity {
                     }
                 });
     }
-
 
     public void Registrar (View view)
     {

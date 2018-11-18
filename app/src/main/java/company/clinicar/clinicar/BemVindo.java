@@ -18,10 +18,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import company.clinicar.clinicar.ActivityContrato.CarroActivity;
+import company.clinicar.clinicar.Model.DadosComplementares;
 import me.iwf.photopicker.PhotoPicker;
 
 import org.w3c.dom.Text;
@@ -37,6 +41,12 @@ public class BemVindo extends Activity {
     private TextView textView;
     private EditText TextNome;
     private EditText TextEmail;
+    private EditText TextCPF;
+    private EditText TextTelefone;
+    private EditText TextEndereco;
+    private EditText TextSexo;
+    private DatabaseReference mDatabase;
+
     String nome = null;
     String email = null;
 
@@ -51,10 +61,14 @@ public class BemVindo extends Activity {
         textView = findViewById(R.id.textView);
         TextNome = findViewById(R.id.TextNome);
         TextEmail = findViewById(R.id.TextEmail);
+        TextCPF = findViewById(R.id.TextCPF);
+        TextTelefone = findViewById(R.id.TextTelefone);
+        TextEndereco = findViewById(R.id.TextEndereco);
+        TextSexo = findViewById(R.id.TextSexo);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             textView.setText("Bem vindo, " + user.getDisplayName());
         }
@@ -92,6 +106,7 @@ public class BemVindo extends Activity {
             GetUser();
             UpdateUser();
             CleanUser();
+            AdicionarRegistroCompleto();
             photoRef.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -124,5 +139,61 @@ public class BemVindo extends Activity {
         TextNome.setText(null);
         TextEmail.setText(null);
     }
+
+    private void AdicionarRegistroCompleto(){
+
+        DadosComplementares dados = new DadosComplementares();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String cpf;
+        cpf = TextCPF.getText().toString();
+        if(TextCPF.getText().toString().toCharArray().length > 11 || TextCPF.getText().toString().toCharArray().length < 11){
+            Toast.makeText(this, "CPF ficará vazio, pois está incorreto", Toast.LENGTH_SHORT).show();
+            dados.setCPF(null);
+        }
+        else{
+            dados.setCPF(cpf);
+        }
+
+        if(TextTelefone.getText().toString().toCharArray().length > 11 || TextCPF.getText().toString().toCharArray().length < 9){
+            Toast.makeText(this, "Telefone ficará vazio, pois está incorreto", Toast.LENGTH_SHORT).show();
+            dados.setTelefone(0);
+        }
+        else{
+            dados.setTelefone(Integer.parseInt(TextTelefone.getText().toString()));
+        }
+
+        dados.setEndereco(TextEndereco.getText().toString());
+
+        String sexo = TextSexo.getText().toString();
+        if(!sexo.equals("M") || !sexo.equals("F")){
+            dados.setSexo(null);
+        }
+        else
+        {
+            dados.setSexo(TextSexo.getText().toString());
+        }
+
+        dados.setUsuario(user.getEmail());
+        SalvarDadosComplementares(dados, dados.getUsuario());
+    }
+
+    private void SalvarDadosComplementares(DadosComplementares dados, String user){
+
+        mDatabase.child("dados").child(user).setValue(dados)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(BemVindo.this, "Dados adicionado", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener(){
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(BemVindo.this, "Erro ao realizar operação ", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
 }

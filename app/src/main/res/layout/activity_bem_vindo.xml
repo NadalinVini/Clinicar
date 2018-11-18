@@ -25,6 +25,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <EditText
+        android:id="@+id/TextCPF"
+        android:hint="CPF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/TextTelefone"
+        android:hint="Telefone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/TextEndereco"
+        android:hint="Endereco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/TextSexo"
+        android:hint="Sexo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
     <ImageView
         android:layout_gravity="center"
         android:id="@+id/imgSelected"
