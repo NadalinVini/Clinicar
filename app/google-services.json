@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "3989111389-mbja8c5vo607akbggq0dkqsohtgt2ho0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "company.clinicar.clinicar",
+            "certificate_hash": "2d3927f425de3b18b981bf84f3cf5dddd7b07ad0"
+          }
+        },
+        {
           "client_id": "3989111389-qdekld4ot92qg6ur61m30ut8j9tbtbdo.apps.googleusercontent.com",
           "client_type": 3
         }

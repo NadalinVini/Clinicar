@@ -18,13 +18,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.Query;
 
 import company.clinicar.clinicar.ActivityContrato.CarroActivity;
+import company.clinicar.clinicar.Model.Carro;
 import company.clinicar.clinicar.Model.DadosComplementares;
 import me.iwf.photopicker.PhotoPicker;
 
@@ -32,6 +37,7 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BemVindo extends Activity {
 
@@ -46,6 +52,7 @@ public class BemVindo extends Activity {
     private EditText TextEndereco;
     private EditText TextSexo;
     private DatabaseReference mDatabase;
+    private List<DadosComplementares> dadosList;
 
     String nome = null;
     String email = null;
@@ -72,6 +79,10 @@ public class BemVindo extends Activity {
         if (user != null) {
             textView.setText("Bem vindo, " + user.getDisplayName());
         }
+
+        CarregarInformacoes(user.getUid());
+
+
     }
 
     public void photoPickerFunction(View view){
@@ -166,16 +177,10 @@ public class BemVindo extends Activity {
         dados.setEndereco(TextEndereco.getText().toString());
 
         String sexo = TextSexo.getText().toString();
-        if(!sexo.equals("M") || !sexo.equals("F")){
-            dados.setSexo(null);
-        }
-        else
-        {
-            dados.setSexo(TextSexo.getText().toString());
-        }
+        dados.setSexo(sexo);
 
         dados.setUsuario(user.getEmail());
-        SalvarDadosComplementares(dados, dados.getUsuario());
+        SalvarDadosComplementares(dados, user.getUid());
     }
 
     private void SalvarDadosComplementares(DadosComplementares dados, String user){
@@ -195,5 +200,29 @@ public class BemVindo extends Activity {
                 });
     }
 
+    private void CarregarInformacoes(String user)
+    {
+        dadosList = new ArrayList<>();
+
+         Query mQuery = mDatabase.child("dados").child(user);
+
+        mQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DadosComplementares dados = dataSnapshot.getValue(DadosComplementares.class);
+                /*for(DataSnapshot partidaSnapshot : dataSnapshot.getChildren()){
+                    dadosList.add(partidaSnapshot.getValue(DadosComplementares.class));
+
+                }*/
+                dados.getCPF();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

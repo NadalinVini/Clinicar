@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
     private EditText editLogin;
     private EditText editSenha;
     private FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +30,14 @@ public class MainActivity extends Activity {
         editLogin = findViewById(R.id.editLogin);
         editSenha = findViewById(R.id.editSenha);
         mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
-
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public void Logar (View view)
     {
         String sLogin =editLogin.getText().toString();
         String sSenha = editSenha.getText().toString();
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
         mAuth.signInWithEmailAndPassword(sLogin, sSenha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
