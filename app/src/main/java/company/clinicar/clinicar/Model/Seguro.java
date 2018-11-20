@@ -9,13 +9,13 @@ import java.util.Date;
 public class Seguro {
 
     private int ID;
-    private Date DataContrato;
+    private String DataContrato;
     private String Usuario;
 
     public Seguro() {
     }
 
-    public Seguro(int ID, Date dataContrato, String usuario) {
+    public Seguro(int ID, String dataContrato, String usuario) {
         this.ID = ID;
         DataContrato = dataContrato;
         Usuario = usuario;
@@ -29,11 +29,11 @@ public class Seguro {
         this.ID = ID;
     }
 
-    public Date getDataContrato() {
+    public String getDataContrato() {
         return DataContrato;
     }
 
-    public void setDataContrato(Date dataContrato) {
+    public void setDataContrato(String dataContrato) {
         DataContrato = dataContrato;
     }
 

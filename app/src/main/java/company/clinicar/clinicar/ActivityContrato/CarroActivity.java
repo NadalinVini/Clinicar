@@ -82,8 +82,8 @@ public class CarroActivity extends Activity {
     }
 
     private void SalvarCarro(Carro carro, long id){
-
-        mDatabase.child("carro").child("ID" + id).setValue(carro)
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase.child("carro").child(user.getUid()).setValue(carro)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

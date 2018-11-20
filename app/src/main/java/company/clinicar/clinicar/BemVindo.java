@@ -52,7 +52,7 @@ public class BemVindo extends Activity {
     private EditText TextEndereco;
     private EditText TextSexo;
     private DatabaseReference mDatabase;
-    private List<DadosComplementares> dadosList;
+
 
     String nome = null;
     String email = null;
@@ -116,12 +116,14 @@ public class BemVindo extends Activity {
             StorageReference photoRef = mStorageRef.child("images");
             GetUser();
             UpdateUser();
-            CleanUser();
             AdicionarRegistroCompleto();
             photoRef.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(BemVindo.this, "Arquivo Enviado com sucesso!", Toast.LENGTH_SHORT).show();
+                    textView.setText("Bem vindo, " + nome);
+                    CleanUser();
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -142,13 +144,20 @@ public class BemVindo extends Activity {
     }
     private void UpdateUser(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        user.updateEmail(email);
-        Uri image = Uri.parse(photos.get(0));
-        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(nome).setPhotoUri(image).build());
+        if(!email.equals("")){
+            user.updateEmail(email);
+            Uri image = Uri.parse(photos.get(0));
+            user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(nome).setPhotoUri(image).build());
+        }
+
     }
     private void CleanUser(){
         TextNome.setText(null);
         TextEmail.setText(null);
+        TextEndereco.setText((null));
+        TextTelefone.setText(null);
+        TextSexo.setText(null);
+        TextCPF.setText(null);
     }
 
     private void AdicionarRegistroCompleto(){
@@ -200,15 +209,14 @@ public class BemVindo extends Activity {
                 });
     }
 
-    private void CarregarInformacoes(String user)
-    {
-        dadosList = new ArrayList<>();
+    private void CarregarInformacoes(String user) {
 
          Query mQuery = mDatabase.child("dados").child(user);
 
         mQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 DadosComplementares dados = dataSnapshot.getValue(DadosComplementares.class);
                 /*for(DataSnapshot partidaSnapshot : dataSnapshot.getChildren()){
                     dadosList.add(partidaSnapshot.getValue(DadosComplementares.class));

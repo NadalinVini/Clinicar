@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import company.clinicar.clinicar.ActivityContrato.CarroActivity;
-import company.clinicar.clinicar.ActivityContrato.OficinaActivity;
+import company.clinicar.clinicar.ActivityContrato.MapsActivity;
 import company.clinicar.clinicar.ActivityContrato.PlanosActivity;
 
 
@@ -30,7 +30,7 @@ public class ContratoActivity  extends Activity{
         startActivity(intent);
     }
     public void IrOficina(View view){
-        Intent intent = new Intent(ContratoActivity.this, OficinaActivity.class);
+        Intent intent = new Intent(ContratoActivity.this,  MapsActivity.class);
         startActivity(intent);
     }
     public void IrPerfil(View view){
