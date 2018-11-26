@@ -8,36 +8,36 @@
     tools:context="company.clinicar.clinicar.MainActivity">
 
     <EditText
-        android:hint="E-mail"
         android:id="@+id/editLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="E-mail" />
 
     <EditText
-        android:hint="Senha"
         android:id="@+id/editSenha"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Senha"
+        android:inputType="textPassword" />
 
     <Button
-        android:text="Logar"
-        android:onClick="Logar"
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:onClick="Logar"
+        android:text="Logar" />
 
     <TextView
-        android:padding="20dp"
-        android:hint="                Caso você não tenha conta, click em Register."
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="                Caso você não tenha conta, click em Register."
+        android:padding="20dp" />
 
-<Button
-    android:id="@+id/Register"
-    android:text="Register"
-    android:onClick="Registrar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/Register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Registrar"
+        android:text="Register" />
 
 </LinearLayout>

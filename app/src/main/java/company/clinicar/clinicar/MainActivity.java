@@ -33,39 +33,35 @@ public class MainActivity extends Activity {
         user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public void Logar (View view)
-    {
-        String sLogin =editLogin.getText().toString();
+    public void Logar(View view) {
+        String sLogin = editLogin.getText().toString();
         String sSenha = editSenha.getText().toString();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        mAuth.signInWithEmailAndPassword(sLogin, sSenha)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Logado Sucesso", Toast.LENGTH_SHORT).show();
-                            if(user.getDisplayName() == null)
-                            {
-                                Intent intent = new Intent(MainActivity.this, BemVindo.class);
-                                startActivity(intent);
+        if (!sLogin.isEmpty() && !sSenha.isEmpty()) {
+            mAuth.signInWithEmailAndPassword(sLogin, sSenha)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Logado Sucesso", Toast.LENGTH_SHORT).show();
+                                if (user.getDisplayName() == null) {
+                                    Intent intent = new Intent(MainActivity.this, BemVindo.class);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(MainActivity.this, ContratoActivity.class);
+                                    startActivity(intent);
+                                }
+                            } else {
+                                Toast.makeText(MainActivity.this, "Erro ao Logar", Toast.LENGTH_SHORT).show();
                             }
-                            else
-                            {
-                                Intent intent = new Intent(MainActivity.this, ContratoActivity.class);
-                                startActivity(intent);
-                            }
-
                         }
-                        else
-                        {
-                            Toast.makeText(MainActivity.this, "Erro ao Logar", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+        } else {
+            Toast.makeText(MainActivity.this, "Preenche essa disgraça ai", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void Registrar (View view)
-    {
+    public void Registrar(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }

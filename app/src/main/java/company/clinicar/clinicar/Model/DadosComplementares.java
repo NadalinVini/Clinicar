@@ -1,5 +1,7 @@
 package company.clinicar.clinicar.Model;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.Date;
 
 /**
@@ -10,15 +12,17 @@ public class DadosComplementares {
 
     private String Usuario;
     private String CPF;
-    private long Telefone;
+    private Long Telefone;
     private String Endereco;
     private Date Nascimento;
     private String Sexo;
+    private FirebaseUser user;
+    private String img;
 
     public DadosComplementares() {
     }
 
-    public DadosComplementares(String CPF, long telefone, String endereco, Date nascimento, String sexo, String usuario) {
+    public DadosComplementares(String CPF, Long telefone, String endereco, Date nascimento, String sexo, String usuario) {
         this.CPF = CPF;
         Telefone = telefone;
         Endereco = endereco;
@@ -27,19 +31,36 @@ public class DadosComplementares {
         Usuario = usuario;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public FirebaseUser getUser() {
+        return user;
+    }
+
+    public void setUser(FirebaseUser user) {
+        this.user = user;
+    }
+
     public String getCPF() {
-        return CPF;
+        return this.CPF;
+
     }
 
     public void setCPF(String CPF) {
         this.CPF = CPF;
     }
 
-    public long getTelefone() {
+    public Long getTelefone() {
         return Telefone;
     }
 
-    public void setTelefone(long telefone) {
+    public void setTelefone(Long telefone) {
         Telefone = telefone;
     }
 

@@ -28,30 +28,30 @@ public class RegisterActivity extends Activity {
         editsEmail = findViewById(R.id.editsEmail);
         editsSenha = findViewById(R.id.editsSenha);
         mAuth = FirebaseAuth.getInstance();
-
     }
 
-    public void Registrar(View view)
-    {
-        String sEmail =editsEmail.getText().toString();
+    public void Registrar(View view) {
+        String sEmail = editsEmail.getText().toString();
         String sSenha = editsSenha.getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(sEmail, sSenha).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
-            if (task.isSuccessful()) {
-                Toast.makeText(RegisterActivity.this, "Registrado, Pau no cu", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, BemVindo.class);
-                startActivity(intent);
-                /**/
+        if (!sEmail.isEmpty() && !sSenha.isEmpty()) {
+                mAuth.createUserWithEmailAndPassword(sEmail, sSenha).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Registrado, Pau no cu", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, BemVindo.class);
+                            startActivity(intent);
+                            /**/
 
-            }
-            else
-            {
-                Toast.makeText(RegisterActivity.this, "Escreve certo ae FDP", Toast.LENGTH_SHORT).show();
-            }
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Escreve certo ae FDP", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+        } else {
+            Toast.makeText(RegisterActivity.this, "Preeche os campos ai caralho", Toast.LENGTH_SHORT).show();
         }
-    });
-
     }
 }

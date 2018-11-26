@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context="company.clinicar.clinicar.RegisterActivity">
 
-
     <EditText
         android:id="@+id/editsEmail"
         android:hint="E-mail"
@@ -18,7 +17,8 @@
         android:id="@+id/editsSenha"
         android:hint="Senha"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/buttonS"
@@ -26,4 +26,5 @@
         android:onClick="Registrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 </LinearLayout>
